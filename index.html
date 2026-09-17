@@ -505,32 +505,35 @@ const CAT_SORT  = ['quick','todo','career','project','learning'];
 
 const MOVE = '2026-08-01';
 
+const dIn = n => { const d = new Date(); d.setDate(d.getDate() + n); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
 const TASKS = [
-
-  { id:'CA0', cat:'career', text:'Reply to the recruiter from Nimbus Robotics', pri:1, done:false, due:'2026-08-03' },
-  { id:'CA1', cat:'career', text:'Update LinkedIn headline and About section', done:true },
-  { id:'CA2', cat:'career', text:'Reach out to 3 hiring managers this week', pri:1, done:false, due:'2026-08-05' },
-  { id:'CA3', cat:'career', text:'Rehearse the 5 core PM interview questions', done:false },
-  { id:'CA4', cat:'career', text:'Apply to 5+ roles - log each one in the job board', done:false },
-  { id:'CA5', cat:'career', text:'Write follow-up notes after the Volta EV interview', done:true },
-
-  { id:'LE0', cat:'learning', text:'Read one chapter of "Inspired" (Marty Cagan)', pri:1, done:false },
-  { id:'LE1', cat:'learning', text:'Finish the SQL basics course', done:false },
-  { id:'LE2', cat:'learning', text:'Study GTM basics - pricing, launch, positioning', done:false },
-  { id:'LE3', cat:'learning', text:'Review funnel metrics - acquisition, activation, retention', done:true },
-
-  { id:'PR0', cat:'project', text:'Polish the portfolio case study', pri:1, done:false, due:'2026-08-10' },
-  { id:'PR1', cat:'project', text:'Ship v1 of the side project', done:false },
+  { id:'QK0', cat:'quick', text:'Send thank-you note after the Volta EV interview', pri:1, done:false, due:dIn(0), state:'started' },
+  { id:'QK1', cat:'quick', text:'Confirm two references are available', done:false, due:dIn(2) },
+  { id:'QK2', cat:'quick', text:'Pay the electricity bill', done:false, due:dIn(1) },
+  { id:'CA0', cat:'career', text:'Reply to the recruiter from Nimbus Robotics', pri:1, done:false, due:dIn(1), state:'started',
+    notes:[ { on:dIn(-3), text:'Recruiter asked for salary range and notice period.' }, { on:dIn(-1), text:'Drafted the reply, checking the range with a friend first.' } ] },
+  { id:'CA1', cat:'career', text:'Prepare the Northwind Devices final round', pri:1, done:false, due:dIn(4), state:'started',
+    notes:[ { on:dIn(-2), text:'Panel is product, engineering and ops. Two trade-off stories needed.' } ] },
+  { id:'CA2', cat:'career', text:'Reach out to 3 hiring managers this week', done:false, due:dIn(5) },
+  { id:'CA3', cat:'career', text:'Wait for Helios Energy feedback', done:false, state:'waiting',
+    notes:[ { on:dIn(-6), text:'Recruiter said feedback by end of next week.' } ] },
+  { id:'CA4', cat:'career', text:'Update LinkedIn headline and About section', done:true },
+  { id:'LE0', cat:'learning', text:'Read one chapter of a product management book', pri:1, done:false, due:dIn(3) },
+  { id:'LE1', cat:'learning', text:'Finish the SQL basics course', done:false, state:'started',
+    notes:[ { on:dIn(-8), text:'Modules 1-4 done.' }, { on:dIn(-2), text:'Joins and window functions left.' } ] },
+  { id:'LE2', cat:'learning', text:'Study pricing and launch basics', done:false },
+  { id:'LE3', cat:'learning', text:'Review funnel metrics: acquisition, activation, retention', done:true },
+  { id:'PR0', cat:'project', text:'Polish the portfolio case study', pri:1, done:false, due:dIn(6), state:'started',
+    notes:[ { on:dIn(-4), text:'Rewrote the problem statement. Needs a before/after chart.' } ] },
+  { id:'PR1', cat:'project', text:'Ship v1 of the side project', done:false, due:dIn(12) },
   { id:'PR2', cat:'project', text:'Record a 2-minute product demo video', done:false },
-
-  { id:'TD0', cat:'todo', text:'Book a dentist appointment', done:false },
-  { id:'TD1', cat:'todo', text:'Renew gym membership', done:false, due:'2026-08-01' },
-  { id:'TD2', cat:'todo', text:'Plan the weekend trip', done:false },
+  { id:'PR3', cat:'project', text:'Waiting on a friend to test the onboarding flow', done:false, state:'waiting' },
+  { id:'TD0', cat:'todo', text:'Book a dentist appointment', done:false, due:dIn(8) },
+  { id:'TD1', cat:'todo', text:'Renew gym membership', done:false, due:dIn(3) },
+  { id:'TD2', cat:'todo', text:'Plan the Banff road trip budget', done:false, due:dIn(10), state:'started' },
   { id:'TD3', cat:'todo', text:'Set up a weekly budget review', done:true },
-
-  { id:'QK0', cat:'quick', text:'Send thank-you note after the Volta EV interview', pri:1, done:false, due:'2026-07-30' },
-  { id:'QK1', cat:'quick', text:'Confirm reference availability with two contacts', done:false },
 ];
+
 const SEED = 'v21';
 
 let tasks = [], nextTaskId = 1;

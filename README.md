@@ -25,7 +25,11 @@ the top of it. Done work folds away under Started so it counts without shouting.
 Inside a panel the order is decided for you: quick wins first, then P1, then whatever is due
 soonest. You never sort the list yourself.
 
-**Every tag on a row is a control.** Click the category to move a task to another one, the priority
+**Every task keeps a dated log.** Hover a row and its notes open underneath it, newest first: what
+happened, what is next. Click the log to add a line. The row never grows at rest, so a long list
+stays a list.
+
+**Every tag on a row is a control. Click the category to move a task to another one, the priority
 to flag or unflag it, the status to move it between not started, started and waiting. Click the
 text to edit the task properly. It is all one click, no dialogs to open first.
 
@@ -54,7 +58,7 @@ Small, separate apps that share a look but nothing else - separate data, separat
 | Task Tracker | this one |
 | Job Search | https://github.com/DereckCB/job-search |
 | Trip Planner | https://github.com/DereckCB/trip-planner |
-| Household Budget | https://github.com/DereckCB/budget |
+| Household Budget | https://github.com/DereckCB/household-budget |
 
 ## License
 
