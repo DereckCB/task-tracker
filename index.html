@@ -8,13 +8,20 @@
 <style>
   :root {
     --bg: #111214; --surface: #18191c; --surface2: #1f2023;
-    --border: #2a2b2e; --accent: #5b6370;
+    --border: #2a2b2e;
     --green: #4a7c59; --text: #d1d3d8; --muted: #565a61; --white: #e8eaed;
+    
+    --brand: #8b7fc0;
+    --brand-ink: #efeaff;                    
+    --accent: var(--brand);                  
   }
   :root[data-theme="light"] {
     --bg: #f6f7f9; --surface: #ffffff; --surface2: #eceff3;
-    --border: #d7dbe1; --accent: #6b7480;
+    --border: #d7dbe1;
     --green: #3f8a5b; --text: #23272e; --muted: #7b828c; --white: #10131a;
+    --brand: #6f5fa8;
+    --brand-ink: #ffffff;
+    --accent: var(--brand);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 14px; min-height: 100vh; }
@@ -24,7 +31,7 @@
   .badge { background: var(--surface2); color: #b9924a; border: 1px solid #3a3220; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px; }
   main { padding: 20px 24px; max-width: 1180px; margin: 0 auto; }
 
-  /* ── TABS ── */
+  
   nav.tabs { display: flex; gap: 4px; padding: 10px 24px 0; background: var(--surface); border-bottom: 1px solid var(--border); }
   .tab-btn { background: none; border: none; color: var(--muted); padding: 9px 18px; border-radius: 8px 8px 0 0; cursor: pointer; font-size: 13px; font-weight: 600; border-bottom: 2px solid transparent; transition: all .15s; }
   .tab-btn:hover { color: var(--text); }
@@ -32,7 +39,7 @@
   .tab { display: none; }
   .tab.active { display: block; }
 
-  /* ── METRICS ── */
+  
   #metrics { background: none; border: none; border-bottom: 1px solid var(--border); border-radius: 0; padding: 0 2px 16px; margin-bottom: 16px; }
   .m-row { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
   .m-stat { text-align: center; }
@@ -49,26 +56,29 @@
   .m-progress { height: 6px; background: var(--bg); border-radius: 3px; margin-top: 14px; overflow: hidden; }
   .m-fill { height: 100%; background: var(--green); border-radius: 3px; transition: width .3s; }
 
-  /* ── CATEGORY FILTER ── */
+  
   .m-cats { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
   .cat-chip { background: none; border: none; color: var(--muted); border-radius: 0; padding: 4px 2px; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; border-bottom: 2px solid transparent; transition: all .15s; }
   .cat-chip:hover { color: var(--text); }
-  .cat-chip.active { color: var(--white); border-bottom-color: var(--white); }
+  .cat-chip.active { color: var(--white); border-bottom-color: var(--brand); }
   .cat-chip .cnt { font-size: 11px; opacity: .7; }
 
-  /* ── LAYOUT ── */
+  
   .layout { display: grid; grid-template-columns: 1.7fr 1fr; gap: 16px; align-items: start; }
   @media(max-width:860px){ .layout { grid-template-columns: 1fr; } }
   .panel { background: none; border: none; border-radius: 0; }
   .panel-head { display: flex; align-items: center; justify-content: space-between; padding: 0 2px 8px; margin-bottom: 10px; border-bottom: 1px solid var(--border); }
   .panel-head h2 { font-size: 15px; font-weight: 700; }
   .panel-head .ctx { font-size: 12px; color: var(--muted); font-weight: 500; }
-  .btn { background: var(--surface2); color: var(--text); border: 1px solid var(--border); padding: 7px 14px; border-radius: 7px; cursor: pointer; font-size: 13px; font-weight: 600; transition: opacity .15s; }
-  .btn:hover { opacity: .82; }
-  .btn.secondary { background: var(--surface2); }
+  .btn { background: color-mix(in srgb, var(--brand) 22%, var(--surface2)); color: var(--white); border: 1px solid color-mix(in srgb, var(--brand) 55%, var(--border)); padding: 7px 14px; border-radius: 7px; cursor: pointer; font-size: 13px; font-weight: 600; transition: background .15s, border-color .15s; }
+  .btn:hover { background: color-mix(in srgb, var(--brand) 34%, var(--surface2)); border-color: var(--brand); }
+  
+  .btn.secondary { background: var(--surface2); color: var(--text); border-color: var(--border); }
+  .btn.secondary:hover { background: var(--surface2); border-color: var(--muted); }
 
-  /* ── TASK LIST ── Description takes the width; status sits above the due date. */
-  .task-row { display: flex; align-items: center; gap: 9px; padding: 9px 12px; margin-bottom: 6px; border-radius: 6px; background: var(--surface); transition: background .1s; }
+  
+  
+  .task-row { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; padding: 9px 12px; margin-bottom: 6px; border-radius: 6px; background: var(--surface); transition: background .1s; }
   .task-row:last-child { margin-bottom: 0; }
   .task-row:hover { background: var(--surface2); }
   .task-row input[type=checkbox] { accent-color: var(--accent); width: 15px; height: 15px; flex-shrink: 0; cursor: pointer; }
@@ -79,7 +89,7 @@
   .task-row.done .chip { opacity: .5; }
   .t-edit { flex: 1; background: var(--surface2); border: 1px solid var(--accent); border-radius: 6px; padding: 4px 8px; color: var(--text); font-size: 12px; font-family: inherit; }
   .t-edit:focus { outline: none; }
-  /* Right stack: [P1 + status] on top, due date underneath. */
+  
   .t-right { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; flex-shrink: 0; }
   .t-rline { display: flex; align-items: center; gap: 5px; }
   .pri-tag { font-size: 13px; line-height: 1; padding: 0; flex-shrink: 0; cursor: pointer; background: none; border: none; }
@@ -98,17 +108,18 @@
   .icon-btn { background: none; border: none; cursor: pointer; padding: 2px 5px; border-radius: 5px; color: var(--muted); font-size: 13px; }
   .icon-btn:hover { background: var(--border); color: var(--text); }
 
-  /* ── TASK BOARD: two separate bubbles (Started · Backlog), Done bubble below ── */
+  
   .board2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start; }
   @media (max-width: 760px) { .board2 { grid-template-columns: 1fr; } }
   .panel-head .tg-cnt { background: none; color: var(--muted); padding: 0 2px; font-size: 11px; font-weight: 700; margin-left: 6px; }
-  /* Started bubble is the evident one: green header + faint top accent. */
+  
   .panel.panel-started .panel-head { color: #5fbf80; border-bottom-color: #244a30; }
   .tgroup-empty { padding: 16px; color: var(--muted); font-size: 12px; font-style: italic; text-align: center; }
-  /* Waiting task in the backlog stands out with an amber edge. */
-  .task-row.is-waiting { border-left: 3px solid #b9924a; padding-left: 11px; background: color-mix(in srgb, #c79a4a 13%, var(--surface)); }
-  .task-row.is-waiting:hover { background: color-mix(in srgb, #c79a4a 20%, var(--surface)); }
-  /* Done: a collapsible arrow at the bottom of the Started bubble. */
+  
+  
+  .task-row.is-waiting { background: color-mix(in srgb, #c79a4a 15%, var(--surface)); }
+  .task-row.is-waiting:hover { background: color-mix(in srgb, #c79a4a 22%, var(--surface)); }
+  
   details.done-fold { border-top: 1px solid var(--border); }
   details.done-fold > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 8px; padding: 12px 16px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); user-select: none; }
   details.done-fold > summary::-webkit-details-marker { display: none; }
@@ -117,7 +128,21 @@
   details.done-fold > summary:hover { color: var(--text); }
   details.done-fold .tg-cnt { background: none; color: var(--muted); padding: 0 2px; font-size: 10px; font-weight: 700; }
 
-  /* ── STATUS PICKER POPOVER ── */
+  
+  
+  
+  .note-dot { font-size: 10px; line-height: 1; color: var(--accent); flex-shrink: 0; }
+  
+  .t-notes { display: none; flex-basis: 100%; width: 100%; margin-top: 7px; padding-top: 7px; border-top: 1px solid var(--border); cursor: text; }
+  .task-row:hover .t-notes, .task-row.notes-open .t-notes { display: block; }
+  .t-notes .n-row { display: flex; align-items: center; gap: 9px; padding: 3px 0; font-size: 12px; }
+  .t-notes .n-on { color: var(--muted); font-size: 10px; font-weight: 700; white-space: nowrap; flex-shrink: 0; width: 42px; }
+  .t-notes .n-tx { color: var(--text); line-height: 1.45; word-break: break-word; flex: 1; }
+  .t-notes .n-del { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 11px; padding: 0 3px; opacity: 0; flex-shrink: 0; }
+  .t-notes .n-row:hover .n-del { opacity: 1; }
+  .t-notes .n-hint { color: var(--muted); font-size: 10px; padding-top: 4px; }
+  .t-notes input { flex: 1; min-width: 0; background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 12px; padding: 4px 7px; font-family: inherit; }
+  .t-notes input:focus { outline: none; border-color: var(--accent); }
   .state-menu { position: absolute; z-index: 300; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 4px; box-shadow: 0 8px 24px rgba(0,0,0,.45); min-width: 132px; }
   .state-menu button { display: flex; align-items: center; gap: 9px; width: 100%; background: none; border: none; color: var(--text); font-size: 12px; font-weight: 600; padding: 7px 10px; border-radius: 6px; cursor: pointer; text-align: left; white-space: nowrap; }
   .state-menu button:hover { background: var(--surface2); }
@@ -125,16 +150,16 @@
   .state-menu button.cur::after { content: '✓'; margin-left: auto; color: var(--muted); font-size: 11px; }
   .state-menu .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 
-  /* Shared bits used by every app */
+  
   .empty { text-align: center; padding: 32px; color: var(--muted); font-size: 13px; }
   .toast { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%) translateY(20px); background: #22252a; color: #e8eaed; border: 1px solid var(--border); padding: 10px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; opacity: 0; pointer-events: none; transition: all .25s; z-index: 100; box-shadow: 0 6px 24px rgba(0,0,0,.4); }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  /* ── MODAL ── */
+  
   .modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.6); z-index: 100; align-items: center; justify-content: center; }
   .modal-bg.open { display: flex; }
   .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; width: 460px; max-width: calc(100vw - 32px); max-height: calc(100vh - 32px); overflow-y: auto; }
-  /* Job modal is wider (more columns fit) so it's shorter and fits the screen. */
+  
   #jobModalBg .modal { width: 760px; }
   .modal h3 { font-size: 16px; margin-bottom: 18px; }
   .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -150,7 +175,7 @@
   .prep-head { font-size: 12px; font-weight: 800; color: var(--text); text-transform: uppercase; letter-spacing: .04em; border-top: 1px solid var(--border); padding-top: 12px; margin-top: 2px; }
   .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 18px; }
 
-  /* ── AUTH + SYNC ── */
+  
   .head-right { display: flex; align-items: center; gap: 10px; }
   .sync { font-size: 11px; color: var(--muted); white-space: nowrap; }
   .logout { background: none; border: 1px solid var(--border); color: var(--muted); font-size: 11px; padding: 3px 10px; border-radius: 14px; cursor: pointer; }
@@ -165,7 +190,7 @@
   .auth-local { background: none; border: none; color: var(--muted); font-size: 11px; text-decoration: underline; cursor: pointer; width: 100%; margin-top: 12px; font-family: inherit; }
   .auth-local:hover { color: var(--text); }
 
-  /* ── PHONE (compact; keeps desktop format unchanged) ── */
+  
   @media (max-width: 640px) {
     body { font-size: 12px; }
     header { padding: 9px 12px; flex-wrap: wrap; gap: 5px; }
@@ -196,12 +221,12 @@
     .panel-head .ctx { font-size: 10px; }
     .btn { font-size: 11px; padding: 5px 10px; }
 
-    /* Compact rows: description flexes, status stacked over the date on the right. */
+    
     .task-row { gap: 8px; padding: 7px 10px; }
     .chip { font-size: 9px; padding: 1px 6px; }
     .t-txt, .t-edit { font-size: 12px; line-height: 1.3; }
     .pri-tag { font-size: 9px; padding: 1px 5px; }
-    .pri-tag.p0 { display: none; }              /* hide "-" when no priority */
+    .pri-tag.p0 { display: none; }              
     .state-tag { font-size: 9px; padding: 1px 7px; }
     .t-due { font-size: 10px; }
     .t-actions { opacity: 1; }
@@ -209,7 +234,7 @@
 
   }
 
-  /* ── SMALL PHONE (≤380px: iPhone SE / mini, fold front) ── */
+  
   @media (max-width: 380px) {
     body { font-size: 11px; }
     header h1 { font-size: 13px; }
@@ -220,14 +245,11 @@
     .panel-head h2 { font-size: 11px; }
   }
 
-  .demo-note { background: color-mix(in srgb, #c79a4a 14%, var(--surface)); border: 1px solid color-mix(in srgb, #c79a4a 34%, var(--border)); color: var(--text); border-radius: 10px; padding: 10px 13px; font-size: 12px; line-height: 1.5; margin-bottom: 16px; }
-  .demo-note b { color: var(--white); }
-  .demo-note a { color: var(--accent); }
-  /* ── App shell + left sidebar (icon nav, hover-expand) ── */
-  /* Left menu + hub flyout (shared block - keep identical in every app) */
+  
+  
   a.side-btn { text-decoration: none; }
   .side-sep { height: 1px; background: var(--border); margin: 6px 10px; }
-  /* Icon-only rail: fixed width, the label shows as a tooltip on hover. */
+  
   .side-btn { justify-content: center; padding: 9px; position: relative; }
   .side-btn[data-tip]:hover::after, .side-btn[data-tip]:focus-visible::after {
     content: attr(data-tip); position: absolute; left: calc(100% + 12px); top: 50%; transform: translateY(-50%);
@@ -243,7 +265,7 @@
   .hub-item .hi svg { width: 17px; height: 17px; display: block; }
   .hub-item.is-current { color: var(--white); background: var(--surface2); cursor: default; }
   .hub-item.is-current .here { margin-left: auto; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
-  /* Pages inside an app */
+  
   .view { display: none; }
   .view.active { display: block; }
   .app-shell { display: flex; min-height: 100vh; align-items: stretch; }
@@ -253,9 +275,9 @@
   .side-btn .si { width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .side-btn .si svg { width: 19px; height: 19px; display: block; }
   .side-btn:hover { background: var(--surface2); color: var(--text); }
-  .side-btn.active { color: var(--white); background: var(--surface2); }
+  .side-btn.active { color: var(--white); background: color-mix(in srgb, var(--brand) 22%, var(--surface2)); }
   main.content { flex: 1; min-width: 0; max-width: none; margin: 0; padding: 20px 24px; }
-  /* Settings popover (bottom-left) — minimalist, no icons, aligned text */
+  
   .settings-menu { position: fixed; left: 62px; bottom: 14px; z-index: 60; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 5px; min-width: 172px; box-shadow: 0 12px 40px rgba(0,0,0,.42); display: flex; flex-direction: column; gap: 1px; font-family: inherit; }
   .settings-menu[hidden] { display: none; }
   .settings-menu button { display: block; width: 100%; text-align: left; background: none; border: none; color: var(--text); font-size: 13px; font-weight: 500; letter-spacing: .01em; padding: 8px 12px; border-radius: 7px; cursor: pointer; transition: background .1s; }
@@ -263,15 +285,15 @@
   .settings-menu .sm-sep { height: 1px; background: var(--border); margin: 4px 6px; }
   .settings-menu .sm-danger { color: var(--muted); }
   .settings-menu .sm-danger:hover { color: var(--white); }
-  /* Page title */
+  
   .content-head { margin: 0 0 14px; }
   .content-head-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
   .app-title { font-size: 20px; font-weight: 800; letter-spacing: -.01em; color: var(--white); margin: 0; }
-  /* Combined dashboard card (metrics + filter + calendar) in the right column */
+  
   .dash-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 12px; }
   .dash-card #metrics { margin: 0; }
   .dash-card .cal { background: none; border: none; border-radius: 0; padding: 0; }
-  /* Top dashboard band: metrics + filter on the left, calendar on the right */
+  
   .dash-band { display: grid; grid-template-columns: 1fr 236px; gap: 18px; align-items: stretch; margin-bottom: 18px; }
   @media (max-width: 760px) { .dash-band { grid-template-columns: 1fr; } }
   .dash-metrics { min-width: 0; }
@@ -279,16 +301,21 @@
   .dash-cal { padding: 10px 12px; }
   .task-row[draggable="true"] { cursor: grab; }
   .task-row.dragging { opacity: .5; }
-  /* P1 line on the left (no background change) */
-  .task-row.pri:not(.is-waiting) { border-left: 3px solid #d64545; padding-left: 11px; }
-  /* Add-task button row above the grouped list */
+  
+  body.dragging .dash-band { position: sticky; top: 0; z-index: 20; background: var(--bg); padding-bottom: 8px; }
+  body.dragging .dash-cal { outline: 1.5px dashed var(--accent); outline-offset: 2px; }
+  .panel.drop-panel { outline: 1.5px dashed var(--green); outline-offset: 6px; border-radius: 8px; }
+  
+  .task-row.pri:not(.is-waiting) { background: color-mix(in srgb, #d64545 13%, var(--surface)); }
+  .task-row.pri:not(.is-waiting):hover { background: color-mix(in srgb, #d64545 20%, var(--surface)); }
+  
   .tasklist-head { display: flex; justify-content: flex-end; margin-bottom: 4px; }
-  /* Category group headers in the task list */
+  
   .cat-group { margin-top: 14px; }
   .cat-group:first-child { margin-top: 0; }
   .cat-group-head { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 6px 2px; display: flex; align-items: center; gap: 6px; }
   .cat-group-head .cg-count { color: var(--accent); font-weight: 700; }
-  /* Month calendar (Samsung-style grid) */
+  
   .cal { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px; }
   .cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
   .cal-title { font-size: 12px; font-weight: 800; color: var(--white); }
@@ -299,15 +326,22 @@
   .cal-cell { position: relative; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--text); border-radius: 5px; }
   .cal-cell.other { color: var(--border); }
   .cal-cell.today { outline: 1.5px solid var(--accent); }
-  .cal-cell.has { background: color-mix(in srgb, #e0873a 18%, var(--surface)); color: var(--white); font-weight: 700; cursor: grab; }
+  
+  .cal-cell.has { background: color-mix(in srgb, var(--brand) 24%, var(--surface)); color: var(--white); font-weight: 700; cursor: grab; }
   .cal-cell.has.urgent { background: color-mix(in srgb, #c25a4a 22%, var(--surface)); }
-  .cal-cell.cal-hl { outline: 2px solid #e0873a; outline-offset: -1px; z-index: 1; }
+  .cal-cell.cal-hl { outline: 2px solid var(--brand); outline-offset: -1px; z-index: 1; }
   .cal-cell.drop-ok { background: color-mix(in srgb, var(--green) 32%, var(--surface)); outline: 1.5px dashed var(--green); color: var(--white); }
-  .cal-dot { position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%); width: 3px; height: 3px; border-radius: 50%; background: #e0873a; }
+  .cal-dot { position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%); width: 3px; height: 3px; border-radius: 50%; background: var(--brand); }
 </style>
 </head>
 <body>
 
+<style>
+  
+  .auth-remember { display: flex; align-items: center; gap: 8px; margin: 2px 0 10px;
+                   font-size: 12px; color: var(--muted); cursor: pointer; user-select: none; }
+  .auth-remember input { width: 14px; height: 14px; margin: 0; cursor: pointer; accent-color: var(--brand, #8b7fc0); }
+</style>
 <div id="authOverlay" class="auth-overlay">
   <div class="auth-box">
     <h2>Tasks</h2>
@@ -315,6 +349,7 @@
     <input id="auth-email" type="email" placeholder="Email" autocomplete="username">
     <input id="auth-pass" type="password" placeholder="Password" autocomplete="current-password">
     <div class="auth-error" id="authError"></div>
+    <label class="auth-remember"><input type="checkbox" id="auth-remember" checked> Remember me on this computer</label>
     <button class="btn" onclick="doLogin()">Log in</button>
     <button class="btn secondary" onclick="doSignup()">Create account</button>
     <button class="auth-local" onclick="useLocalOnly()">Skip - use this device only</button>
@@ -351,11 +386,11 @@
   <button onclick="hideSettings(); openHistory(event)">History</button>
   <button onclick="toggleTheme()"><span id="themeLabel">Light theme</span></button>
   <div class="sm-sep"></div>
+  <button onclick="hideSettings(); showAuth()">Switch account / sign in</button>
   <button class="sm-danger" onclick="signOut()">Log out</button>
   <input type="file" id="restoreFile" accept="application/json,.json" style="display:none" onchange="restoreBackup(this.files[0]); this.value=''">
 </div>
 
-<!-- Task modal -->
 <div class="modal-bg" id="taskModalBg">
   <div class="modal">
     <h3 id="taskModalTitle">Add Task</h3>
@@ -396,24 +431,19 @@
 </div>
 
 <script>
-// ── This app's pages (left menu) ──
+
 const PAGES = [
   { id:'board', label:'Tracker', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 6h10.5"/><path d="M9.5 12h10.5"/><path d="M9.5 18h10.5"/><path d="M4 6l1 1 2-2"/><path d="M4 12l1 1 2-2"/><path d="M4 18l1 1 2-2"/></svg>' },
 ];
 
-// ── Left menu + Hub (SHARED BLOCK - keep it identical in every app) ──
-// The menu lists this app's pages. (The author's private build also has a hub button here,
-// which opens a flyout to their other apps; SHOW_HUB is false in this public build.)
-const SHOW_HUB = false;   // the hub is the author's private build only
+const SHOW_HUB = false;
 const APP_ID = 'tasks';
 const HUB_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.6"/></svg>';
-const HUB_APPS = [];      // private build only
+const HUB_APPS = [];
 function appUrl(a) {
   try { const o = JSON.parse(localStorage.getItem('app_links') || '{}'); return o[a.id] || a.url; } catch (e) { return a.url; }
 }
-// The apps live on different origins (files vs the budget server), so localStorage cannot be
-// shared. The theme travels on the jump instead: ?theme= / #theme= is applied and stored on arrival,
-// and every hub link carries the current one out.
+
 function currentTheme() {
   return document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
 }
@@ -441,13 +471,13 @@ function showPage(id) {
   renderNav();
   if (typeof onPageShown === 'function') onPageShown(id);
 }
-// Hub flyout: a small floating panel with my other apps (kept open while the mouse is on it).
+
 let hubTimer = null;
 function showHub(el) {
   if (!SHOW_HUB) return;
   clearTimeout(hubTimer);
   const f = document.getElementById('hubFlyout'); if (!f) return;
-  // every app is listed; the one you are in is shown as current and cannot be picked
+
   f.innerHTML = HUB_APPS.map(a => a.id === APP_ID
     ? `<span class="hub-item is-current"><span class="hi">${a.icon}</span>${a.label}</span>`
     : `<a class="hub-item" href="${withTheme(appUrl(a))}"><span class="hi">${a.icon}</span>${a.label}</a>`).join('');
@@ -462,10 +492,6 @@ function hideHubSoon() {
 }
 renderNav();
 
-// ═══════════════════════════════════════════════════════════════
-// DATA - edit CATEGORIES / TASKS, then bump SEED.
-// ═══════════════════════════════════════════════════════════════
-
 const CATEGORIES = {
   quick:    { label: 'Quick',    icon: '⚡', color: '#c76b3a' },
   career:   { label: 'Career',   icon: '🎯', color: '#7a8494' },
@@ -474,52 +500,47 @@ const CATEGORIES = {
   todo:     { label: 'To Do',    icon: '✅', color: '#8a6a9a' },
 };
 const CAT_ORDER = ['quick','career','learning','project','todo'];
-// List grouping / sort order the user wants: quick, then to-do, career, project, learning
+
 const CAT_SORT  = ['quick','todo','career','project','learning'];
 
 const MOVE = '2026-08-01';
 
 const TASKS = [
-  // Career
+
   { id:'CA0', cat:'career', text:'Reply to the recruiter from Nimbus Robotics', pri:1, done:false, due:'2026-08-03' },
   { id:'CA1', cat:'career', text:'Update LinkedIn headline and About section', done:true },
   { id:'CA2', cat:'career', text:'Reach out to 3 hiring managers this week', pri:1, done:false, due:'2026-08-05' },
   { id:'CA3', cat:'career', text:'Rehearse the 5 core PM interview questions', done:false },
   { id:'CA4', cat:'career', text:'Apply to 5+ roles - log each one in the job board', done:false },
   { id:'CA5', cat:'career', text:'Write follow-up notes after the Volta EV interview', done:true },
-  // Learning
+
   { id:'LE0', cat:'learning', text:'Read one chapter of "Inspired" (Marty Cagan)', pri:1, done:false },
   { id:'LE1', cat:'learning', text:'Finish the SQL basics course', done:false },
   { id:'LE2', cat:'learning', text:'Study GTM basics - pricing, launch, positioning', done:false },
   { id:'LE3', cat:'learning', text:'Review funnel metrics - acquisition, activation, retention', done:true },
-  // Project
+
   { id:'PR0', cat:'project', text:'Polish the portfolio case study', pri:1, done:false, due:'2026-08-10' },
   { id:'PR1', cat:'project', text:'Ship v1 of the side project', done:false },
   { id:'PR2', cat:'project', text:'Record a 2-minute product demo video', done:false },
-  // To Do
+
   { id:'TD0', cat:'todo', text:'Book a dentist appointment', done:false },
   { id:'TD1', cat:'todo', text:'Renew gym membership', done:false, due:'2026-08-01' },
   { id:'TD2', cat:'todo', text:'Plan the weekend trip', done:false },
   { id:'TD3', cat:'todo', text:'Set up a weekly budget review', done:true },
-  // Quick
+
   { id:'QK0', cat:'quick', text:'Send thank-you note after the Volta EV interview', pri:1, done:false, due:'2026-07-30' },
   { id:'QK1', cat:'quick', text:'Confirm reference availability with two contacts', done:false },
 ];
-const SEED = 'v20';
-
-// ═══════════════════════════════════════════════════════════════
-// ENGINE
-// ═══════════════════════════════════════════════════════════════
+const SEED = 'v21';
 
 let tasks = [], nextTaskId = 1;
 let activeCat = null, editingTask = null, editingText = null;
 
 const STATE_ORDER = ['none','started','waiting'];
 const STATE_LABEL = { none:'Not started', started:'Started', waiting:'Waiting', finished:'Finished' };
-const STATE_RANK  = { started:0, waiting:1, none:2 }; // started, then waiting, then not started
+const STATE_RANK  = { started:0, waiting:1, none:2 };
 function escAttr(s) { return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;'); }
 
-// ── Persistence ──
 const LS_STATE   = 'tasks_state';
 const LS_BACKUPS = 'tasks_backups';
 function loadState() {
@@ -527,8 +548,7 @@ function loadState() {
   const raw = localStorage.getItem(LS_STATE);
   if (raw) { try { s = JSON.parse(raw); } catch(e) {} }
   if (!s) {
-    // First run: the old combined Tracker still holds the real board, so take it from there.
-    // Only when there is nothing to take do we fall back to the seed in this file.
+
     {
       tasks = TASKS.map(x => ({ ...x }));
       nextTaskId = tasks.length + 1;
@@ -536,7 +556,7 @@ function loadState() {
   } else {
     tasks = s.tasks || [];
     nextTaskId = s.nextTaskId || tasks.length + 1;
-    // On a SEED bump, additively merge new seed items by id and keep all existing user state.
+
     if (s.seed !== SEED) {
       const have = new Set(tasks.map(x => x.id));
       TASKS.forEach(x => { if (!have.has(x.id)) tasks.push({ ...x }); });
@@ -551,8 +571,6 @@ function saveState() {
   schedulePush();
 }
 
-// ── Backup / Restore ──
-// Manual backup: download the whole board as a dated JSON file (lands in Downloads).
 function exportBackup() {
   const payload = { seed: SEED, tasks, nextTaskId, exportedAt: new Date().toISOString() };
   const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
@@ -580,7 +598,7 @@ function restoreBackup(file) {
   };
   reader.readAsText(file);
 }
-// In-browser safety net: a rolling ring of the last 15 states in localStorage.
+
 function autoBackup() {
   try {
     const arr = JSON.parse(localStorage.getItem(LS_BACKUPS) || '[]');
@@ -590,19 +608,18 @@ function autoBackup() {
   } catch (e) {}
 }
 
-// Normalize: priority is binary (1 = P1, 0 = none); migrate the old boolean; state = none/started/waiting.
 function normalizeState() {
   tasks.forEach(t => {
     if (t.pri === undefined) t.pri = t.priority ? 1 : 0;
     delete t.priority;
     delete t.focus;
     if (t.state === undefined) t.state = 'none';
-    applyWaiting(t);   // stamp waitingSince for tasks already waiting
+    if (!Array.isArray(t.notes)) t.notes = [];
+    applyWaiting(t);
   });
   nextTaskId = Math.max(nextTaskId, 1);
 }
 
-// ── Helpers ──
 function daysTo(due) {
   if (!due) return null;
   const d = new Date(due + 'T00:00:00'); const now = new Date(); now.setHours(0,0,0,0);
@@ -618,23 +635,23 @@ function dueLabel(due) {
   if (d === 0) return 'Today';
   return fmtDate(due) + ' (' + d + 'd)';
 }
-// Local (not UTC) YYYY-MM-DD for "today".
+
 function todayISO() {
   const n = new Date();
   return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
 }
-// Whole days a task has been in the "waiting" state.
+
 function daysWaiting(t) {
   if (!t.waitingSince) return null;
   const s = new Date(t.waitingSince + 'T00:00:00'); const now = new Date(); now.setHours(0,0,0,0);
   return Math.max(0, Math.round((now - s) / 86400000));
 }
-// Keep waitingSince in step with state: stamp it on entering "waiting", clear otherwise.
+
 function applyWaiting(t) {
   if (t.state === 'waiting') { if (!t.waitingSince) t.waitingSince = todayISO(); }
   else if (t.waitingSince) delete t.waitingSince;
 }
-// Sort WITHIN a group (grouping already handles state): Quick first, then P1, then soonest due.
+
 function cmpInGroup(a, b) {
   const aq = a.cat === 'quick' ? 0 : 1, bq = b.cat === 'quick' ? 0 : 1;
   if (aq !== bq) return aq - bq;
@@ -647,13 +664,11 @@ function cmpInGroup(a, b) {
   return 0;
 }
 
-// ── Metrics ──
 function buildMetrics() {
   const host = document.getElementById('metrics');
   const open = tasks.filter(t => !t.done);
   const pri  = open.filter(t => t.pri > 0).length;
 
-  // Single "Due" metric: count of open dated tasks; hover lists which ones.
   const dated = open.filter(t => t.due).sort(cmpByDue);
   const urgentCount = dated.filter(t => { const d = daysTo(t.due); return d !== null && d <= 7; }).length;
   const dueTitle = dated.length
@@ -684,8 +699,6 @@ function buildMetrics() {
 
 function setFilter(c) { activeCat = c; buildMetrics(); buildTaskList(); }
 
-// ── Tasks ──
-// Soonest due first, undated last.
 function cmpByDue(a, b) {
   const da = daysTo(a.due), db = daysTo(b.due);
   if (da !== null && db !== null) { if (da !== db) return da - db; }
@@ -693,7 +706,7 @@ function cmpByDue(a, b) {
   else if (db !== null) return 1;
   return 0;
 }
-// Within the P1 group: category order (CAT_SORT), then due date.
+
 function cmpP1(a, b) {
   const ca = CAT_SORT.indexOf(a.cat), cb = CAT_SORT.indexOf(b.cat);
   const ra = ca < 0 ? 99 : ca, rb = cb < 0 ? 99 : cb;
@@ -701,7 +714,6 @@ function cmpP1(a, b) {
   return cmpByDue(a, b);
 }
 
-// One task row. Started/waiting rows get a highlight class; waiting shows its age.
 function taskRowHTML(t) {
   const cat = CATEGORIES[t.cat] || { label:t.cat, icon:'', color:'#888' };
   const d = daysTo(t.due);
@@ -717,24 +729,26 @@ function taskRowHTML(t) {
     ? `<input id="taskEditInput" class="t-edit" value="${escAttr(t.text)}" onblur="commitText('${t.id}',this.value)" onkeydown="if(event.key==='Enter'){this.blur();}else if(event.key==='Escape'){cancelEditText();}">`
     : `<span class="t-txt" onclick="openTaskModal('${t.id}')" title="Click to edit">${t.text}</span>`;
   const hl = (!t.done && t.state === 'waiting') ? ' is-waiting' : '';
-  const drag = t.done ? '' : ` draggable="true" ondragstart="taskDragStart(event,'${t.id}')" ondragend="taskDragEnd(event)" onmouseenter="hlCalDate('${t.due||''}',true)" onmouseleave="hlCalDate('${t.due||''}',false)"`;
+
+  const editing = notesEditFor === t.id;
+  const drag = (t.done || editing) ? '' : ` draggable="true" ondragstart="taskDragStart(event,'${t.id}')" ondragend="taskDragEnd(event)" onmouseenter="hlCalDate('${t.due||''}',true)" onmouseleave="hlCalDate('${t.due||''}',false)"`;
   return `
-    <div class="task-row${t.done?' done':''}${t.pri>0?' pri':''}${hl}" style="--c:${cat.color}" data-id="${t.id}" data-due="${t.due||''}"${drag}>
+    <div class="task-row${t.done?' done':''}${t.pri>0?' pri':''}${hl}${editing?' notes-open':''}" style="--c:${cat.color}" data-id="${t.id}" data-due="${t.due||''}"${drag}>
       <input type="checkbox" ${t.done?'checked':''} onclick="toggleTask('${t.id}')" title="Mark done">
       <span class="chip" style="--c:${cat.color}" onclick="openCatMenu('${t.id}',event)" title="Change category">${cat.icon} ${cat.label}</span>
       ${textHTML}
       <div class="t-right">
-        <div class="t-rline">${priHTML}${stateHTML}</div>
+        <div class="t-rline">${noteDotHTML(t)}${priHTML}${stateHTML}</div>
         ${dueHTML}
       </div>
       <span class="t-actions">
+        <button class="icon-btn" onclick="editNotes('${t.id}',event)" title="Add a note">📝</button>
         <button class="icon-btn" onclick="deleteTask('${t.id}')" title="Delete">🗑️</button>
       </span>
+      ${notesBlockHTML(t)}
     </div>`;
 }
 
-// Two panels: Started tasks on the left, Backlog (waiting on top, tagged) on the right.
-// Done tucks into a collapsible fold under Started. P1 sorts to the top of each group.
 function buildTaskList() {
   const host = document.getElementById('taskList');
   const ctx = activeCat ? `<span class="tg-cnt">${CATEGORIES[activeCat].icon} ${CATEGORIES[activeCat].label}</span>` : '';
@@ -743,7 +757,7 @@ function buildTaskList() {
   if (!list.length) { host.innerHTML = '<div class="panel"><div class="empty">No tasks here.</div></div>'; return; }
 
   const started = list.filter(t => !t.done && t.state === 'started').sort(cmpInGroup);
-  // Backlog holds everything not started (incl. waiting). Waiting sits on top, tagged.
+
   const backlog = list.filter(t => !t.done && t.state !== 'started').sort((a, b) => {
     const aw = a.state === 'waiting' ? 0 : 1, bw = b.state === 'waiting' ? 0 : 1;
     if (aw !== bw) return aw - bw;
@@ -755,17 +769,67 @@ function buildTaskList() {
   const doneFold = done.length
     ? `<details class="done-fold"><summary>Done <span class="tg-cnt">${done.length}</span></summary>${rows(done)}</details>`
     : '';
+
+  const drop = p => `data-panel="${p}" ondragover="panelDragOver(event,this)" ondragleave="panelDragLeave(event,this)" ondrop="panelDrop(event,this)"`;
   host.innerHTML = `<div class="board2">
-    <div class="panel panel-started">
+    <div class="panel panel-started" ${drop('started')}>
       <div class="panel-head"><h2>▶ Started <span class="tg-cnt">${started.length}</span></h2><span class="btn" style="visibility:hidden" aria-hidden="true">+ Task</span></div>
-      ${started.length ? rows(started) : '<div class="tgroup-empty">Nothing started. Pick one from the backlog.</div>'}
+      ${started.length ? rows(started) : '<div class="tgroup-empty">Nothing started. Drag one over from the backlog.</div>'}
       ${doneFold}
     </div>
-    <div class="panel">
+    <div class="panel" ${drop('backlog')}>
       <div class="panel-head"><h2>Backlog <span class="tg-cnt">${backlog.length}</span>${ctx}</h2><button class="btn" onclick="openTaskModal()">+ Task</button></div>
       ${backlog.length ? rows(backlog) : '<div class="tgroup-empty">Backlog is clear.</div>'}
     </div>
   </div>`;
+}
+
+function openTaskModal(id) {
+  editingTask = id || null;
+  const t = id ? tasks.find(x => x.id === id) : null;
+  document.getElementById('taskModalTitle').textContent = t ? 'Edit Task' : 'Add Task';
+  document.getElementById('t-cat').innerHTML =
+    CAT_ORDER.map(c => `<option value="${c}">${CATEGORIES[c].icon} ${CATEGORIES[c].label}</option>`).join('');
+  document.getElementById('t-text').value  = t ? t.text : '';
+  document.getElementById('t-cat').value   = (t && t.cat) || activeCat || 'todo';
+  document.getElementById('t-pri').value   = String(t && t.pri > 0 ? 1 : 0);
+  document.getElementById('t-state').value = (t && t.state) || 'none';
+  document.getElementById('t-due').value   = (t && t.due) || '';
+  document.getElementById('taskModalBg').classList.add('open');
+  setTimeout(() => document.getElementById('t-text').focus(), 0);
+}
+function closeTaskModal() {
+  document.getElementById('taskModalBg').classList.remove('open');
+  editingTask = null;
+}
+function saveTask() {
+  const text = document.getElementById('t-text').value.trim();
+  if (!text) { toast('Write what needs to be done first'); document.getElementById('t-text').focus(); return; }
+  const due = document.getElementById('t-due').value;
+  const data = {
+    text,
+    cat:   document.getElementById('t-cat').value,
+    pri:   parseInt(document.getElementById('t-pri').value, 10) || 0,
+    state: document.getElementById('t-state').value,
+  };
+  const t = editingTask ? tasks.find(x => x.id === editingTask) : null;
+  if (t) {
+    Object.assign(t, data);
+    if (due) t.due = due; else delete t.due;
+    applyWaiting(t);
+  } else {
+    const nt = { id: 't' + (nextTaskId++), done: false, notes: [], ...data };
+    if (due) nt.due = due;
+    applyWaiting(nt);
+    tasks.push(nt);
+  }
+  saveState(); closeTaskModal(); renderAll();
+}
+function deleteTask(id) {
+  const t = tasks.find(x => x.id === id);
+  if (!t || !confirm('Delete "' + t.text + '"?')) return;
+  tasks = tasks.filter(x => x.id !== id);
+  saveState(); renderAll();
 }
 
 function toggleTask(id) {
@@ -775,7 +839,6 @@ function toggleTask(id) {
   saveState(); buildTaskList(); buildMetrics(); buildCalendar();
 }
 
-// Inline edits (no modal): click text to edit, click chips to cycle.
 function startEditText(id) {
   editingText = id;
   buildTaskList();
@@ -809,9 +872,100 @@ function toast(msg) {
   clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 2800);
 }
 
-// ── Shared option-picker popover ──
-// Every clickable tag opens the same little floating menu of all its options
-// (same interaction as the task state picker), instead of blind-cycling on click.
+let notesEditFor = null;
+
+function noteDotHTML(t) {
+  const n = (t.notes || []).length;
+  return n ? `<span class="note-dot" title="${n} note${n > 1 ? 's' : ''}">📝</span>` : '';
+}
+
+function notesBlockHTML(t) {
+  const notes = t.notes || [];
+  const editing = notesEditFor === t.id;
+  if (!editing && !notes.length) return '';
+  const idx = notes.map((n, i) => i).reverse();
+  if (editing) {
+    const rows = idx.map(i =>
+      `<div class="n-row"><span class="n-on">${fmtDate(notes[i].on)}</span>` +
+      `<input data-i="${i}" value="${escAttr(notes[i].text)}" maxlength="200">` +
+      `<button class="n-del" onclick="deleteNote('${t.id}',${i})" title="Delete note">&#10005;</button></div>`).join('');
+    return `<div class="t-notes" onclick="event.stopPropagation()">${rows}
+      <div class="n-row"><span class="n-on">${fmtDate(todayISO())}</span>
+        <input id="noteNew" placeholder="What moved?" maxlength="200"
+          onkeydown="if(event.key==='Enter'){commitNotes('${t.id}',true)}else if(event.key==='Escape'){cancelNotes()}"></div>
+      <div class="n-hint">Click outside to save</div></div>`;
+  }
+  const rows = idx.map(i =>
+    `<div class="n-row"><span class="n-on">${fmtDate(notes[i].on)}</span>` +
+    `<span class="n-tx">${escHtml(notes[i].text)}</span></div>`).join('');
+  return `<div class="t-notes" onclick="editNotes('${t.id}',event)" title="Click to add or edit">${rows}</div>`;
+}
+
+function editNotes(id, ev) {
+  if (ev) ev.stopPropagation();
+  notesEditFor = id;
+  buildTaskList();
+  const inp = document.querySelector(`.task-row[data-id="${id}"] #noteNew`);
+  if (inp) inp.focus();
+
+  setTimeout(() => document.addEventListener('mousedown', notesOutside, true), 0);
+}
+function cancelNotes() {
+  notesEditFor = null;
+  document.removeEventListener('mousedown', notesOutside, true);
+  buildTaskList();
+}
+function notesOutside(ev) {
+  const box = ev.target.closest ? ev.target.closest('.t-notes') : null;
+  if (!box && notesEditFor) commitNotes(notesEditFor, false);
+}
+
+function commitNotes(id, keepOpen) {
+  const t = tasks.find(x => x.id === id);
+  const box = document.querySelector(`.task-row[data-id="${id}"] .t-notes`);
+  if (!t || !box) { cancelNotes(); return; }
+  const kept = [];
+  box.querySelectorAll('input[data-i]').forEach(inp => {
+    const v = inp.value.trim();
+    if (v) kept.push({ on: t.notes[Number(inp.dataset.i)].on, text: v });
+  });
+  const fresh = box.querySelector('#noteNew');
+  const nv = fresh ? fresh.value.trim() : '';
+  if (nv) kept.push({ on: todayISO(), text: nv });
+  kept.sort((a, b) => a.on < b.on ? -1 : a.on > b.on ? 1 : 0);
+  const changed = JSON.stringify(kept) !== JSON.stringify(t.notes || []);
+  t.notes = kept;
+  if (changed) { saveState(); buildMetrics(); }
+  if (keepOpen) {
+    buildTaskList();
+    const inp = document.querySelector(`.task-row[data-id="${id}"] #noteNew`);
+    if (inp) inp.focus();
+    return;
+  }
+  cancelNotes();
+}
+function deleteNote(id, i) {
+  const t = tasks.find(x => x.id === id); if (!t) return;
+
+  const box = document.querySelector(`.task-row[data-id="${id}"] .t-notes`);
+  if (box) box.querySelectorAll('input[data-i]').forEach(inp => {
+    const j = Number(inp.dataset.i), v = inp.value.trim();
+    if (t.notes[j] && v) t.notes[j].text = v;
+  });
+  t.notes.splice(i, 1);
+  saveState(); buildTaskList(); buildMetrics();
+  const inp = document.querySelector(`.task-row[data-id="${id}"] #noteNew`);
+  if (inp) inp.focus();
+}
+
+function addNote(id, text) {
+  const t = tasks.find(x => x.id === id); if (!t) return;
+  const v = String(text || '').trim(); if (!v) return;
+  if (!Array.isArray(t.notes)) t.notes = [];
+  t.notes.push({ on: todayISO(), text: v });
+  saveState(); buildTaskList(); buildMetrics();
+}
+
 let menuEl = null, menuPick = null, menuOpts = null;
 function closeMenu() {
   if (menuEl) { menuEl.remove(); menuEl = null; menuPick = null; menuOpts = null; }
@@ -840,7 +994,6 @@ function pickMenu(i) {
   if (fn && opts && opts[i]) fn(opts[i].val);
 }
 
-// Task: state / category / priority
 function openStateMenu(id, ev) {
   const t = tasks.find(x => x.id === id); if (!t) return;
   const cur = t.state || 'none';
@@ -863,7 +1016,6 @@ function openPriMenu(id, ev) {
   ], v => { t.pri = v; saveState(); buildTaskList(); buildMetrics(); buildCalendar(); });
 }
 
-// ── Theme (light / dark) ──
 function applyTheme(mode) {
   document.documentElement.setAttribute('data-theme', mode);
   const lbl = document.getElementById('themeLabel');
@@ -876,12 +1028,11 @@ function toggleTheme() {
   applyTheme(next);
 }
 (function () {
-  const incoming = themeFromUrl();                 // arrived from another app
+  const incoming = themeFromUrl();
   if (incoming) localStorage.setItem('app_theme', incoming);
   applyTheme((incoming || localStorage.getItem('app_theme')) === 'light' ? 'light' : 'dark');
 })();
 
-// ── Settings popover ──
 function toggleSettings(e) {
   if (e) e.stopPropagation();
   const m = document.getElementById('settingsMenu');
@@ -897,8 +1048,7 @@ function outsideSettings(e) {
   if (!m.contains(e.target) && !e.target.closest('.settings-btn')) hideSettings();
 }
 
-// ── Month calendar (right of the tasks dashboard) ──
-let calMonth = 0;   // offset from the current month (0 = this month)
+let calMonth = 0;
 const MON_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 function ymd(d) { return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
 function calShift(delta) { calMonth += delta; buildCalendar(); }
@@ -906,7 +1056,6 @@ function buildCalendar() {
   const host = document.getElementById('calendar');
   if (!host) return;
 
-  // Map open dated tasks by their due day.
   const byDay = {};
   tasks.filter(t => !t.done && t.due).forEach(t => { (byDay[t.due] = byDay[t.due] || []).push(t); });
 
@@ -914,7 +1063,7 @@ function buildCalendar() {
   const base = new Date(today.getFullYear(), today.getMonth() + calMonth, 1);
   const y = base.getFullYear(), m = base.getMonth();
   const first = new Date(y, m, 1);
-  const startDow = first.getDay();               // 0 = Sunday
+  const startDow = first.getDay();
   const daysInMonth = new Date(y, m + 1, 0).getDate();
   const todayStr = ymd(today);
 
@@ -944,18 +1093,25 @@ function buildCalendar() {
   </div>`;
 }
 
-// ── Drag a task onto a calendar day to (re)schedule its due date ──
 let dragTaskId = null;
 function taskDragStart(e, id) {
   dragTaskId = id;
   if (e.dataTransfer) { e.dataTransfer.effectAllowed = 'move'; try { e.dataTransfer.setData('text/plain', id); } catch(_){} }
   const row = e.target.closest && e.target.closest('.task-row');
   if (row) row.classList.add('dragging');
+  document.body.classList.add('dragging');
 }
 function taskDragEnd(e) {
   dragTaskId = null;
+  document.body.classList.remove('dragging');
   document.querySelectorAll('.task-row.dragging').forEach(r => r.classList.remove('dragging'));
   document.querySelectorAll('.cal-cell.drop-ok').forEach(c => c.classList.remove('drop-ok'));
+  document.querySelectorAll('.panel.drop-panel').forEach(p => p.classList.remove('drop-panel'));
+}
+
+function draggedTask(e) {
+  const id = dragTaskId || (e.dataTransfer && e.dataTransfer.getData('text/plain'));
+  return tasks.find(x => x.id === id) || null;
 }
 function calDragOver(e, cell) {
   e.preventDefault();
@@ -966,53 +1122,78 @@ function taskDrop(e, cell) {
   e.preventDefault();
   cell.classList.remove('drop-ok');
   const date = cell.getAttribute('data-date');
-  const id = dragTaskId || (e.dataTransfer && e.dataTransfer.getData('text/plain'));
-  const t = tasks.find(x => x.id === id);
-  if (t && date) { t.due = date; saveState(); buildTaskList(); buildMetrics(); buildCalendar(); }
+  const t = draggedTask(e);
+  if (t && date) { t.due = date; saveState(); renderAll(); toast('Due ' + dueLabel(date)); }
   dragTaskId = null;
+  document.body.classList.remove('dragging');
 }
-// Hovering a task card highlights its due day in the calendar.
+
+function panelDragOver(e, panel) {
+  if (!dragTaskId) return;
+  e.preventDefault();
+  if (e.dataTransfer) e.dataTransfer.dropEffect = 'move';
+  panel.classList.add('drop-panel');
+}
+function panelDragLeave(e, panel) {
+
+  if (e.relatedTarget && panel.contains(e.relatedTarget)) return;
+  panel.classList.remove('drop-panel');
+}
+function panelDrop(e, panel) {
+  e.preventDefault();
+  panel.classList.remove('drop-panel');
+  const t = draggedTask(e);
+  dragTaskId = null;
+  document.body.classList.remove('dragging');
+  if (!t) return;
+  const to = panel.getAttribute('data-panel');
+  if (to === 'started') {
+    if (t.state === 'started') return;
+    t.state = 'started';
+  } else {
+    if (t.state !== 'started') return;
+    t.state = 'none';
+  }
+  applyWaiting(t);
+  saveState(); renderAll();
+  toast(to === 'started' ? 'Started' : 'Back in the backlog');
+}
+
 function hlCalDate(date, on) {
   if (!date) return;
   const cell = document.querySelector('.cal-cell[data-date="' + date + '"]');
   if (cell) cell.classList.toggle('cal-hl', on);
 }
 
-// ── Misc ──
 [ 'taskModalBg' ].forEach(id => {
   document.getElementById(id).addEventListener('click', function(e){ if (e.target === this) this.classList.remove('open'); });
 });
 
-// ── Cloud sync (Supabase) ──
-// Same project and login as the other apps, but this app owns its own row:
-// tables `task_state` + `task_snapshots`. SQL in SETUP.md. Without them the app still
-// works, on this device only, and says so.
-const SUPABASE_URL = '';   // add your own to turn on accounts + cloud sync
-const SUPABASE_KEY = '';   // see SETUP.md
-// No keys -> demo mode: no login, everything stays in this browser.
+const SUPABASE_URL = '';
+const SUPABASE_KEY = '';
+
 const DEMO_MODE = !SUPABASE_URL || !SUPABASE_KEY;
 const sb = DEMO_MODE ? null : window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let currentUser = null;
 let pushTimer = null;
-let cloudUpdatedAt = null;   // updated_at we last saw, for conflict awareness
-let lastSnapshotTs = 0;      // throttle checkpoint snapshots
+let cloudUpdatedAt = null;
+let lastSnapshotTs = 0;
 
 function setSync(text) { const el = document.getElementById('syncBadge'); if (el) el.textContent = text; }
 function renderAll() { buildMetrics(); buildTaskList(); buildCalendar(); }
 
-// Versioned history: a timestamped copy of the whole board, keeping the 50 most recent.
 async function snapshotNow() {
   if (!currentUser) return;
   try {
     await sb.from('task_snapshots').insert({ user_id: currentUser.id, data: { seed: SEED, tasks, nextTaskId } });
     const { data: extra } = await sb.from('task_snapshots').select('id').eq('user_id', currentUser.id).order('created_at', { ascending: false }).range(50, 500);
     if (extra && extra.length) await sb.from('task_snapshots').delete().in('id', extra.map(r => r.id));
-  } catch (e) { /* snapshots table not set up yet - ignore */ }
+  } catch (e) {  }
 }
 function maybeSnapshot() {
   const now = Date.now();
-  if (now - lastSnapshotTs > 120000) { lastSnapshotTs = now; snapshotNow(); }  // at most every 2 min
+  if (now - lastSnapshotTs > 120000) { lastSnapshotTs = now; snapshotNow(); }
 }
 
 async function pushToCloudNow() {
@@ -1020,7 +1201,7 @@ async function pushToCloudNow() {
   const payload = { seed: SEED, tasks, nextTaskId };
   setSync('Saving...');
   let conflict = false;
-  try {   // another device wrote since we last synced? snapshot the cloud first so nothing is lost
+  try {
     const { data: cur } = await sb.from('task_state').select('updated_at').eq('user_id', currentUser.id).maybeSingle();
     if (cur && cur.updated_at && cloudUpdatedAt && cur.updated_at > cloudUpdatedAt) { conflict = true; await snapshotNow(); }
   } catch (e) {}
@@ -1044,24 +1225,22 @@ async function loadFromCloud() {
     if (error) throw error;
     if (data && data.data && Array.isArray(data.data.tasks) && data.data.tasks.length) {
       cloudUpdatedAt = data.updated_at || null;
-      localStorage.setItem(LS_STATE, JSON.stringify(data.data)); // cloud -> local cache
+      localStorage.setItem(LS_STATE, JSON.stringify(data.data));
       loadState();
       setSync('Synced');
       lastSnapshotTs = Date.now(); snapshotNow();
     } else {
-      loadState();                                   // first login: this device's data (or seed)...
-      await pushToCloudNow();                        // ...and push it up
+      loadState();
+      await pushToCloudNow();
 
     }
   } catch (e) {
-    loadState();               // offline / table missing: fall back to the local cache
+    loadState();
     setSync('Offline');
     toast('Cloud not reachable - working on this device only');
   }
 }
 
-
-// ── Cloud history: pick and restore an earlier version ──
 async function openHistory(ev) {
   ev.stopPropagation();
   if (!currentUser) { alert('Log in to use cloud history.'); return; }
@@ -1091,8 +1270,35 @@ async function startApp() {
   await loadFromCloud();
   renderAll();
 }
-// Local-only escape hatch: use the board without an account (no cross-device sync).
+
+const LS_ACCESS = 'app_access_v1';
+function rememberWanted() {
+  const el = document.getElementById('auth-remember');
+  return el ? !!el.checked : true;
+}
+function readAccess() {
+  try { return JSON.parse(localStorage.getItem(LS_ACCESS) || 'null'); } catch (e) { return null; }
+}
+function writeAccess(mode, email) {
+  const rec = JSON.stringify({ mode, email: email || '', on: new Date().toISOString().slice(0, 10) });
+
+  try { if (typeof writeLS === 'function') writeLS(LS_ACCESS, rec); else localStorage.setItem(LS_ACCESS, rec); }
+  catch (e) {}
+}
+function forgetAccess() { try { localStorage.removeItem(LS_ACCESS); } catch (e) {} }
+
+function showAuth() {
+  forgetAccess();
+  const em = document.getElementById('auth-email');
+  const acc = readAccess();
+  if (em && acc && acc.email) em.value = acc.email;
+  const ov = document.getElementById('authOverlay');
+  if (ov) ov.style.display = 'flex';
+  if (em) try { em.focus(); } catch (e) {}
+}
+
 function useLocalOnly() {
+  if (rememberWanted()) writeAccess('local', '');
   document.getElementById('authOverlay').style.display = 'none';
   loadState();
   renderAll();
@@ -1107,6 +1313,8 @@ async function doLogin() {
   const { data, error } = await sb.auth.signInWithPassword({ email, password });
   if (error) { authError(error.message); return; }
   currentUser = data.user;
+
+  if (rememberWanted()) writeAccess('cloud', email); else forgetAccess();
   await startApp();
 }
 async function doSignup() {
@@ -1118,20 +1326,26 @@ async function doSignup() {
   if (data.session) { currentUser = data.user; await startApp(); }
   else { authError('Account created - now click Log in.'); }
 }
-async function signOut() { if (sb) { try { await sb.auth.signOut(); } catch (e) {} } location.reload(); }
+async function signOut() {
+  forgetAccess();
+  await sb.auth.signOut();
+  location.reload();
+}
 
-// Enter key submits the login form
 document.getElementById('auth-pass').addEventListener('keydown', function(e){ if (e.key === 'Enter') doLogin(); });
 
-// ── Init ──
 (async () => {
-  if (DEMO_MODE) {                 // no keys: skip the login wall, run on localStorage
+  if (DEMO_MODE) {
     document.getElementById('authOverlay').style.display = 'none';
     loadState(); renderAll();
     return;
   }
   const { data } = await sb.auth.getSession();
-  if (data.session) { currentUser = data.session.user; await startApp(); }
+  if (data.session) { currentUser = data.session.user; await startApp(); return; }
+
+  const acc = readAccess();
+  if (acc && acc.mode === 'local') { useLocalOnly(); return; }
+  if (acc && acc.email) { const em = document.getElementById('auth-email'); if (em) em.value = acc.email; }
 })();
 </script>
 </body>
